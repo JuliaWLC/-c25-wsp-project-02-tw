@@ -1,4 +1,5 @@
 import Knex from "knex";
+
 import { DriversMainService } from "../../services/DriversMainService";
 import {
   animalTable,
@@ -8,8 +9,13 @@ import {
   userTable,
 } from "../../migrations/20230503035349_init-db";
 
-const knexfile = require("../../knexfile");
-const knex = Knex(knexfile["testGithub"]);
+import dotenv from "dotenv"
+dotenv.config()
+
+import config from "../../knexfile";
+const knex = Knex(config[process.env.NODE_ENV || "development"]);
+
+console.log("hhihihihihihi knex NODE ENV",process.env.NODE_ENV)
 
 describe("test DriversMainServiceKnex", () => {
   let driversMainService = new DriversMainService(knex);
@@ -296,6 +302,9 @@ describe("test DriversMainServiceKnex", () => {
       driverID[0].id
     );
     const getOngoingOrdersResult = getOngoingOrders.rows;
+    
+
+
 
     expect(getOngoingOrdersResult).toMatchObject([
       {

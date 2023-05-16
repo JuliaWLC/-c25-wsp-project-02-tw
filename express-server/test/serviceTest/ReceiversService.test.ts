@@ -1,6 +1,10 @@
 import Knex from "knex";
-const knexfile = require("../../knexfile");
-const knex = Knex(knexfile["testGithub"]);
+import dotenv from "dotenv";
+dotenv.config();
+
+
+import config from "../../knexfile";
+const knex = Knex(config[process.env.NODE_ENV || "development"]);
 // import { hashPassword } from "../../utils/hash";
 
 import { ReceiversService } from "../../services/ReceiversService";
